@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    <gazebo>
+        <plugin 
+            filename="libignition-gazebo-diff-drive-system.so" 
+            name="ignition::gazebo::systems::DiffDrive">
+            <left_joint>wheel_left_joint</left_joint>
+            <right_joint>wheel_right_joint</right_joint>
+            <wheel_separation>0.23</wheel_separation> 
+            <wheel_radius>0.07</wheel_radius>         
+            <odom_publish_frequency>50</odom_publish_frequency>
+            <topic>cmd_vel</topic>        
+            <odom_topic>odom</odom_topic> 
+            <tf_topic>tf</tf_topic>
+            <publish_odom_tf>true</publish_odom_tf>
+            <frame_id>odom</frame_id>
+            <child_frame_id>base_footprint</child_frame_id> 
+        </plugin>
+    </gazebo>
+
+    <gazebo>
+        <plugin 
+            filename="libignition-gazebo-joint-state-publisher-system.so" 
+            name="ignition::gazebo::systems::JointStatePublisher">
+            <topic>/joint_states</topic>
+            <joint_name>wheel_left_joint</joint_name>
+            <joint_name>wheel_right_joint</joint_name>
+            <joint_name>link1_joint</joint_name>
+            <joint_name>link2-joint</joint_name>
+            <joint_name>link3_joint</joint_name>
+        </plugin>
+    </gazebo>
+
+    <gazebo>
+        <plugin 
+            filename="libignition-gazebo-joint-position-controller-system.so" 
+            name="ignition::gazebo::systems::JointPositionController">
+            <joint_name>link1_joint</joint_name>
+            <topic>link1_cmd_pos</topic>
+            <p_gain>100.0</p_gain>
+            <i_gain>0.1</i_gain>
+            <d_gain>20.0</d_gain>
+        </plugin>
+    </gazebo>
+    
+     <gazebo>
+        <plugin 
+            filename="libignition-gazebo-joint-position-controller-system.so" 
+            name="ignition::gazebo::systems::JointPositionController">
+            <joint_name>link2-joint</joint_name>
+            <topic>link2_cmd_pos</topic>
+            <p_gain>100.0</p_gain>
+            <i_gain>0.1</i_gain>
+            <d_gain>20.0</d_gain>
+        </plugin>
+    </gazebo>
+
+    <gazebo>
+        <plugin 
+            filename="libignition-gazebo-joint-position-controller-system.so" 
+            name="ignition::gazebo::systems::JointPositionController">
+            <joint_name>link3_joint</joint_name>
+            <topic>link3_cmd_pos</topic>
+            <p_gain>100.0</p_gain>
+            <i_gain>0.1</i_gain>
+            <d_gain>20.0</d_gain>
+        </plugin>
+    </gazebo>
+    
+    <gazebo reference="lidar">
+        <sensor name="lidar_sensor" type="gpu_lidar"> <always_on>true</always_on>
+            <visualize>true</visualize> <update_rate>10.0</update_rate>
+            <topic>scan</topic>
+            <ignition_frame_id>lidar</ignition_frame_id>
+            
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>360</samples>
+                        <resolution>1.0</resolution>
+                        <min_angle>${-pi/2}</min_angle>
+                        <max_angle>${pi/2}</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.15</min>
+                    <max>12.0</max>
+                    <resolution>0.01</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.01</stddev>
+                </noise>
+            </ray>
+        </sensor>
+    </gazebo>
+
+    <gazebo reference="camera">
+        <sensor type="camera" name="my_camera_sensor">
+            <pose>0 0 0 0 0 0</pose> 
+
+            <always_on>1</always_on>
+            <update_rate>30.0</update_rate>
+            <visualize>true</visualize>
+            <topic>camera/image_raw</topic>
+            
+            <camera>
+                <horizontal_fov>1.047</horizontal_fov>
+                <image>
+                    <width>640</width>
+                    <height>480</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.05</near>
+                    <far>10.0</far>
+                </clip>
+            </camera>
+        </sensor>
+    </gazebo>
+
+    <gazebo reference="imu">
+        <sensor name="imu_sensor" type="imu">
+            <always_on>true</always_on>
+            <update_rate>100</update_rate> 
+            <visualize>true</visualize>
+
+            <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+                <ros>
+                <remapping>~/out:=imu</remapping>
+                </ros>
+                <initial_orientation_as_reference>false</initial_orientation_as_reference>
+            </plugin>
+
+            <imu>
+                <angular_velocity>
+                <x><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev></noise></x>
+                <y><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev></noise></y>
+                <z><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev></noise></z>
+                </angular_velocity>
+                <linear_acceleration>
+                <x><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev></noise></x>
+                <y><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev></noise></y>
+                <z><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev></noise></z>
+                </linear_acceleration>
+            </imu>
+        </sensor>
+    </gazebo>
+
+    <gazebo reference="mat_trau1">
+        <mu1>0.0</mu1>
+        <mu2>0.0</mu2>
+    </gazebo>
+
+    <gazebo reference="mat_trau2">
+        <mu1>0.0</mu1>
+        <mu2>0.0</mu2>
+    </gazebo>
+
+    <gazebo reference="mat_trau3">
+        <mu1>0.0</mu1>
+        <mu2>0.0</mu2>
+    </gazebo>
+
+    <gazebo reference="mat_trau4">
+        <mu1>0.0</mu1>
+        <mu2>0.0</mu2>
+    </gazebo>
+
+    <gazebo reference="wheel_left">
+        <mu1>200.0</mu1>
+        <mu2>100.0</mu2>
+    </gazebo>
+
+    <gazebo reference="wheel_right">
+        <mu1>200.0</mu1>
+        <mu2>100.0</mu2>
+    </gazebo>
+
+</robot>

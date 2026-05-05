@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <link name="lidar">
+        <inertial>
+            <origin xyz="-0.0010055028634155 -1.38777878078145E-17 0" rpy="0 0 0" />
+            <mass value="0.0538504786266007" />
+            <inertia
+            ixx="1.27953735055269E-05"
+            ixy="-3.05848280509995E-22"
+            ixz="5.68426024204498E-22"
+            iyy="1.27489111838795E-05"
+            iyz="1.67485662530733E-22"
+            izz="1.6731457579019E-05" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://my_robot_description/meshes/lidar.STL" />
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://my_robot_description/meshes/lidar.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="lidar_joint" type="fixed">
+        <origin xyz="0.295 0 -0.013" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="lidar" />
+        <axis xyz="0 0 0" />
+    </joint>
+
+    <link name="camera">
+        <inertial>
+            <origin xyz="-0.00796171978986315 3.46944695195361E-18 0" rpy="0 0 0" />
+            <mass value="0.0127082141735527" />
+            <inertia
+            ixx="1.48054571752202E-06"
+            ixy="1.05501143973999E-22"
+            ixz="-5.93732576439531E-39"
+            iyy="1.09412938905004E-06"
+            iyz="8.92344345590171E-40"
+            izz="1.09412938905004E-06" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <mesh filename="package://my_robot_description/meshes/camera.STL" />
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://my_robot_description/meshes/camera.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="camera_joint" type="fixed">
+        <origin xyz="0.281 0 0.1119" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="camera" />
+        <axis xyz="0 0 0" />
+    </joint>
+
+    <link name="imu"></link>
+    <joint name="imu_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="imu" />
+        <axis xyz="0 0 0" />
+    </joint>
+</robot>
