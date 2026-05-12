@@ -14,7 +14,7 @@
             <topic>cmd_vel</topic>        
             <odom_topic>odom</odom_topic> 
             <tf_topic>tf</tf_topic>
-            <publish_odom_tf>true</publish_odom_tf>
+            <publish_odom_tf>false</publish_odom_tf>
             <frame_id>odom</frame_id>
             <child_frame_id>base_footprint</child_frame_id> 
         </plugin>
@@ -71,7 +71,7 @@
     
     <gazebo reference="lidar">
         <sensor name="lidar_sensor" type="gpu_lidar"> <always_on>true</always_on>
-            <visualize>true</visualize> <update_rate>10.0</update_rate>
+            <visualize>true</visualize> <update_rate>20.0</update_rate>
             <topic>scan</topic>
             <ignition_frame_id>lidar</ignition_frame_id>
             
@@ -86,7 +86,7 @@
                 </scan>
                 <range>
                     <min>0.15</min>
-                    <max>12.0</max>
+                    <max>25.0</max>
                     <resolution>0.01</resolution>
                 </range>
                 <noise>
@@ -128,23 +128,20 @@
             <update_rate>100</update_rate> 
             <visualize>true</visualize>
 
-            <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
-                <ros>
-                <remapping>~/out:=imu</remapping>
-                </ros>
-                <initial_orientation_as_reference>false</initial_orientation_as_reference>
-            </plugin>
+            <!-- CHỈ DÙNG 2 DÒNG NÀY ĐỂ ĐỊNH NGHĨA TOPIC VÀ FRAME CHO IGNITION -->
+            <topic>imu</topic>
+            <ignition_frame_id>imu</ignition_frame_id>
 
             <imu>
                 <angular_velocity>
-                <x><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev></noise></x>
-                <y><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev></noise></y>
-                <z><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev></noise></z>
+                    <x><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev></noise></x>
+                    <y><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev></noise></y>
+                    <z><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev></noise></z>
                 </angular_velocity>
                 <linear_acceleration>
-                <x><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev></noise></x>
-                <y><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev></noise></y>
-                <z><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev></noise></z>
+                    <x><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev></noise></x>
+                    <y><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev></noise></y>
+                    <z><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev></noise></z>
                 </linear_acceleration>
             </imu>
         </sensor>
@@ -170,7 +167,7 @@
         <mu2>0.0</mu2>
     </gazebo>
 
-    <gazebo reference="wheel_left">
+    <!-- <gazebo reference="wheel_left">
         <mu1>200.0</mu1>
         <mu2>100.0</mu2>
     </gazebo>
@@ -178,6 +175,6 @@
     <gazebo reference="wheel_right">
         <mu1>200.0</mu1>
         <mu2>100.0</mu2>
-    </gazebo>
+    </gazebo> -->
 
 </robot>

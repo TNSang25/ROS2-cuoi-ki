@@ -366,7 +366,7 @@
       <geometry>
         <mesh filename="package://my_robot_description/meshes/link3.STL" />
       </geometry>
-      <material name="yellow "/>
+      <material name="yellow"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />

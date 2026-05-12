@@ -1,17 +1,13 @@
-<?xml version="1.0"?>
 <launch>
     <arg name="urdf_model" default="$(find-pkg-share my_robot_description)/urdf/Final.urdf.xacro"/>
     <arg name="gazebo_config_path" default="$(find-pkg-share robot_bringup)/config/gazebo_bridge.yaml"/>
+    <arg name="world_path" default="$(find-pkg-share gazebo_map)/worlds/warehouse_world.sdf"/>
     <arg name="robot_name" default="my_robot"/>
-
-    <!-- 1. Đổi biến để chỉ nhận tên file world -->
-    <arg name="world" default="test_world.sdf" description="Tên file world cần chạy"/>
 
     <set_parameter name="use_sim_time" value="true" />
 
-    <!-- 2. Tự động nối đường dẫn package gazebo_map với tên file world -->
     <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
-        <arg name="gz_args" value="-r $(find-pkg-share gazebo_map)/worlds/$(var world)"/>
+        <arg name="gz_args" value="-r $(var world_path)"/>
     </include>
 
     <node pkg="robot_state_publisher" exec="robot_state_publisher" output="screen">

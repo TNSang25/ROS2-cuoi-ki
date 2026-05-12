@@ -759,7 +759,7 @@
       <self_collide>false</self_collide>
     </model>
     <include>
-      <uri>file://gazebo_map/wall</uri>
+      <uri>file://gazebo_map/model/wall</uri>
       <name>wall</name>
       <pose>0.349445 -0.163424 0 0 -0 0</pose>
     </include>
