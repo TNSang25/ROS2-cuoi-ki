@@ -32,14 +32,14 @@ options = {
 MAP_BUILDER.use_trajectory_builder_2d = true
 MAP_BUILDER.num_background_threads = 4
 
-TRAJECTORY_BUILDER_2D.min_range = 0.15
-TRAJECTORY_BUILDER_2D.max_range = 25.0
+TRAJECTORY_BUILDER_2D.min_range = 0.01
+TRAJECTORY_BUILDER_2D.max_range = 20.0
 TRAJECTORY_BUILDER_2D.missing_data_ray_length = 10.0
 TRAJECTORY_BUILDER_2D.use_imu_data = false
 TRAJECTORY_BUILDER_2D.use_online_correlative_scan_matching = true
 TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.linear_search_window = 0.1
 TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.translation_delta_cost_weight = 10.
-TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.rotation_delta_cost_weight = 0.5
+TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.rotation_delta_cost_weight = 1e-1
 
 -- Tăng độ nhạy cập nhật bản đồ khi di chuyển (Motion Filter)
 TRAJECTORY_BUILDER_2D.motion_filter.max_distance_meters = 0.05

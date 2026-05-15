@@ -26,10 +26,34 @@
       <static>true</static>
       <pose>0 0 0 0 0 0</pose>
       <link name="floor_link">
-        <collision name="collision"><geometry><plane><normal>0 0 1</normal><size>40 40</size></plane></geometry></collision>
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>40 40</size>
+            </plane>
+          </geometry>
+          <!-- Thêm thuộc tính bề mặt và ma sát tại đây -->
+          <surface>
+            <friction>
+              <ode>
+                <mu>100.0</mu>    <!-- Hệ số ma sát dọc -->
+                <mu2>50.0</mu2>   <!-- Hệ số ma sát ngang -->
+              </ode>
+            </friction>
+          </surface>
+        </collision>
         <visual name="visual">
-          <geometry><plane><normal>0 0 1</normal><size>40 40</size></plane></geometry>
-          <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>40 40</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
         </visual>
       </link>
     </model>
@@ -128,8 +152,8 @@
     <model name="speed_bumps">
       <static>true</static>
       <link name="link">
-        <collision name="b1"><pose>5 -4 0.02 0 0 0</pose><geometry><box><size>2 0.4 0.04</size></box></geometry></collision>
-        <visual name="vb1"><pose>5 -4 0.02 0 0 0</pose><geometry><box><size>2 0.4 0.04</size></box></geometry>
+        <collision name="b1"><pose>5 -4 0.02 0 0 0</pose><geometry><box><size>2 0.4 1.5</size></box></geometry></collision>
+        <visual name="vb1"><pose>5 -4 0.02 0 0 0</pose><geometry><box><size>2 0.4 1.5</size></box></geometry>
           <material><ambient>1 1 0 1</ambient><diffuse>1 1 0 1</diffuse></material></visual>
       </link>
     </model>

@@ -1,7 +1,13 @@
 <launch>
     <arg name="urdf_model" default="$(find-pkg-share my_robot_description)/urdf/Final.urdf.xacro"/>
     <arg name="gazebo_config_path" default="$(find-pkg-share robot_bringup)/config/gazebo_bridge.yaml"/>
-    <arg name="world_path" default="$(find-pkg-share gazebo_map)/worlds/warehouse_world.sdf"/>
+    
+    <!-- 1. Thêm một arg mới dành riêng cho tên map, thiết lập mặc định là forest.sdf -->
+    <arg name="world" default="map1.sdf"/>
+    
+    <!-- 2. Cập nhật world_path bằng cách nối đường dẫn package với biến map_name -->
+    <arg name="world_path" default="$(find-pkg-share gazebo_map)/worlds/$(var world)"/>
+    
     <arg name="robot_name" default="my_robot"/>
 
     <set_parameter name="use_sim_time" value="true" />

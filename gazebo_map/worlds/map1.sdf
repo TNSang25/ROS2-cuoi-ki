@@ -27,10 +27,34 @@
     <model name="ground_plane">
       <static>true</static>
       <link name="link">
-        <collision name="collision"><geometry><plane><normal>0 0 1</normal><size>30 30</size></plane></geometry></collision>
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>30 30</size>
+            </plane>
+          </geometry>
+          <!-- Thêm thuộc tính bề mặt và ma sát tại đây -->
+          <surface>
+            <friction>
+              <ode>
+                <mu>100.0</mu>    <!-- Hệ số ma sát dọc -->
+                <mu2>50.0</mu2>   <!-- Hệ số ma sát ngang -->
+              </ode>
+            </friction>
+          </surface>
+        </collision>
         <visual name="visual">
-          <geometry><plane><normal>0 0 1</normal><size>30 30</size></plane></geometry>
-          <material><ambient>0.6 0.6 0.6 1</ambient><diffuse>0.6 0.6 0.6 1</diffuse></material>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>30 30</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.6 0.6 0.6 1</ambient>
+            <diffuse>0.6 0.6 0.6 1</diffuse>
+          </material>
         </visual>
       </link>
     </model>
@@ -92,16 +116,11 @@
       <static>true</static>
       <link name="link">
         <!-- Gờ giảm tốc màu vàng (Cao 5cm) -->
-        <collision name="bump1"><pose>6 -6 0.025 0 0 0</pose><geometry><box><size>3 0.3 0.05</size></box></geometry></collision>
-        <visual name="vbump1"><pose>6 -6 0.025 0 0 0</pose><geometry><box><size>3 0.3 0.05</size></box></geometry><material><ambient>1 1 0 1</ambient></material></visual>
+        <collision name="bump1"><pose>6 -6 0.025 0 0 0</pose><geometry><box><size>3 0.3 1.5</size></box></geometry></collision>
+        <visual name="vbump1"><pose>6 -6 0.025 0 0 0</pose><geometry><box><size>3 0.3 1.5</size></box></geometry><material><ambient>1 1 0 1</ambient></material></visual>
         
-        <collision name="bump2"><pose>6 -7.5 0.025 0 0 0</pose><geometry><box><size>3 0.3 0.05</size></box></geometry></collision>
-        <visual name="vbump2"><pose>6 -7.5 0.025 0 0 0</pose><geometry><box><size>3 0.3 0.05</size></box></geometry><material><ambient>1 1 0 1</ambient></material></visual>
-
-        <!-- Mặt phẳng nghiêng dốc nhẹ màu đỏ -->
-        <!-- pose: x y z roll pitch yaw (0.15 rad ~ 8.5 độ) -->
-        <collision name="ramp"><pose>-6 -7 0.2 0 -0.15 0</pose><geometry><box><size>3 2 0.1</size></box></geometry></collision>
-        <visual name="vramp"><pose>-6 -7 0.2 0 -0.15 0</pose><geometry><box><size>3 2 0.1</size></box></geometry><material><ambient>0.8 0 0 1</ambient></material></visual>
+        <collision name="bump2"><pose>6 -7.5 0.025 0 0 0</pose><geometry><box><size>3 0.3 1.5</size></box></geometry></collision>
+        <visual name="vbump2"><pose>6 -7.5 0.025 0 0 0</pose><geometry><box><size>3 0.3 1.5</size></box></geometry><material><ambient>1 1 0 1</ambient></material></visual>
       </link>
     </model>
 
