@@ -26,5 +26,5 @@
 
     <node pkg="joint_state_publisher" exec="joint_state_publisher" name="joint_state_publisher" output="screen" />
 
-    <node pkg="ros_gz_sim" exec="create" args="-name $(var robot_name) -topic robot_description -x 0.0 -y 0.0 -z 0.5" output="screen"/>
+    <node pkg="ros_gz_sim" exec="create" args="-name $(var robot_name) -topic robot_description -x 0.0 -y 0.5 -z 0.5" output="screen"/>
 </launch>

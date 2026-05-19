@@ -32,16 +32,18 @@ options = {
 MAP_BUILDER.use_trajectory_builder_2d = true
 MAP_BUILDER.num_background_threads = 4
 
-TRAJECTORY_BUILDER_2D.min_range = 0.01
+TRAJECTORY_BUILDER_2D.min_range = 0.1
 TRAJECTORY_BUILDER_2D.max_range = 20.0
 TRAJECTORY_BUILDER_2D.missing_data_ray_length = 10.0
-TRAJECTORY_BUILDER_2D.use_imu_data = false
+TRAJECTORY_BUILDER_2D.use_imu_data = false  
 TRAJECTORY_BUILDER_2D.use_online_correlative_scan_matching = true
 TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.linear_search_window = 0.1
+TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.angular_search_window = math.rad(20.)
 TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.translation_delta_cost_weight = 10.
 TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.rotation_delta_cost_weight = 1e-1
 
 -- Tăng độ nhạy cập nhật bản đồ khi di chuyển (Motion Filter)
+TRAJECTORY_BUILDER_2D.ceres_scan_matcher.occupied_space_weight = 0.01
 TRAJECTORY_BUILDER_2D.motion_filter.max_distance_meters = 0.05
 TRAJECTORY_BUILDER_2D.motion_filter.max_angle_radians = math.rad(0.5)
 TRAJECTORY_BUILDER_2D.motion_filter.max_time_seconds = 0.5 
@@ -57,11 +59,11 @@ TRAJECTORY_BUILDER_2D.submaps.num_range_data = 60
 -- Tần suất tối ưu hóa Pose Graph: Tính toán vòng lặp cực nhanh để sửa lỗi ngay khi robot quay xe (turn 1.0)
 POSE_GRAPH.optimization_problem.huber_scale = 1e2
 POSE_GRAPH.optimize_every_n_nodes = 30 
-POSE_GRAPH.constraint_builder.min_score = 0.65
-POSE_GRAPH.constraint_builder.global_localization_min_score = 0.7
+POSE_GRAPH.constraint_builder.min_score = 0.95
+POSE_GRAPH.constraint_builder.global_localization_min_score = 0.95
 
 -- Giảm sự phụ thuộc vào Odometry (bánh xe) trong quá trình tối ưu hoá đồ thị (tin tưởng Lidar hơn)
-POSE_GRAPH.optimization_problem.odometry_translation_weight = 1e3
+POSE_GRAPH.optimization_problem.odometry_translation_weight = 1e3 
 POSE_GRAPH.optimization_problem.odometry_rotation_weight = 1e3
 
 return options

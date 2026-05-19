@@ -1,0 +1,154 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="perceptual_aliasing_world">
+    <!-- IGNITION GAZEBO SYSTEM PLUGINS -->
+    <plugin filename="ignition-gazebo-physics-system" name="ignition::gazebo::systems::Physics"/>
+    <plugin filename="ignition-gazebo-user-commands-system" name="ignition::gazebo::systems::UserCommands"/>
+    <plugin filename="ignition-gazebo-scene-broadcaster-system" name="ignition::gazebo::systems::SceneBroadcaster"/>
+    <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="ignition-gazebo-imu-system" name="ignition::gazebo::systems::Imu"/>
+
+    <!-- PHYSICS -->
+    <gravity>0 0 -9.8</gravity>
+    <physics name="default_physics" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <!-- LIGHT -->
+    <light name="sun" type="directional">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- GROUND -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <!-- Thêm thuộc tính bề mặt và ma sát tại đây -->
+          <surface>
+            <friction>
+              <ode>
+                <mu>100.0</mu>  <!-- Hệ số ma sát tĩnh theo trục chính -->
+                <mu2>50.0</mu2> <!-- Hệ số ma sát tĩnh theo trục phụ -->
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.3 0.3 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- WALLS -->
+    <model name="walls">
+      <static>true</static>
+      <link name="link">
+        <!-- 1. Bottom Wall -->
+        <collision name="c1"><pose>-3 -0.2 1 0 0 0</pose><geometry><box><size>30.8 0.4 2</size></box></geometry></collision>
+        <visual name="v1"><pose>-3 -0.2 1 0 0 0</pose><geometry><box><size>30.8 0.4 2</size></box></geometry><material><ambient>0.8 0.5 0.2 1</ambient><diffuse>0.8 0.5 0.2 1</diffuse></material></visual>
+
+        <!-- 2. Right Wall -->
+        <collision name="c2"><pose>12.2 7 1 0 0 0</pose><geometry><box><size>0.4 14.8 2</size></box></geometry></collision>
+        <visual name="v2"><pose>12.2 7 1 0 0 0</pose><geometry><box><size>0.4 14.8 2</size></box></geometry><material><ambient>0.8 0.5 0.2 1</ambient><diffuse>0.8 0.5 0.2 1</diffuse></material></visual>
+
+        <!-- 3. Top Wall Right -->
+        <collision name="c3"><pose>7 14.2 1 0 0 0</pose><geometry><box><size>10.8 0.4 2</size></box></geometry></collision>
+        <visual name="v3"><pose>7 14.2 1 0 0 0</pose><geometry><box><size>10.8 0.4 2</size></box></geometry><material><ambient>0.8 0.5 0.2 1</ambient><diffuse>0.8 0.5 0.2 1</diffuse></material></visual>
+
+        <!-- 4. Left Wall Right -->
+        <collision name="c4"><pose>1.8 9.2 1 0 0 0</pose><geometry><box><size>0.4 10.4 2</size></box></geometry></collision>
+        <visual name="v4"><pose>1.8 9.2 1 0 0 0</pose><geometry><box><size>0.4 10.4 2</size></box></geometry><material><ambient>0.8 0.5 0.2 1</ambient><diffuse>0.8 0.5 0.2 1</diffuse></material></visual>
+
+        <!-- 5. Middle Corridor Ceiling -->
+        <collision name="c5"><pose>0 4.2 1 0 0 0</pose><geometry><box><size>4.0 0.4 2</size></box></geometry></collision>
+        <visual name="v5"><pose>0 4.2 1 0 0 0</pose><geometry><box><size>4.0 0.4 2</size></box></geometry><material><ambient>0.8 0.5 0.2 1</ambient><diffuse>0.8 0.5 0.2 1</diffuse></material></visual>
+
+        <!-- 6. Right Wall Left -->
+        <collision name="c6"><pose>-1.8 9.2 1 0 0 0</pose><geometry><box><size>0.4 10.4 2</size></box></geometry></collision>
+        <visual name="v6"><pose>-1.8 9.2 1 0 0 0</pose><geometry><box><size>0.4 10.4 2</size></box></geometry><material><ambient>0.8 0.5 0.2 1</ambient><diffuse>0.8 0.5 0.2 1</diffuse></material></visual>
+
+        <!-- 7. Top Wall Left -->
+        <collision name="c7"><pose>-7 14.2 1 0 0 0</pose><geometry><box><size>10.8 0.4 2</size></box></geometry></collision>
+        <visual name="v7"><pose>-7 14.2 1 0 0 0</pose><geometry><box><size>10.8 0.4 2</size></box></geometry><material><ambient>0.8 0.5 0.2 1</ambient><diffuse>0.8 0.5 0.2 1</diffuse></material></visual>
+
+        <!-- 8. Left Wall Left -->
+        <collision name="c8"><pose>-12.2 9.2 1 0 0 0</pose><geometry><box><size>0.4 10.4 2</size></box></geometry></collision>
+        <visual name="v8"><pose>-12.2 9.2 1 0 0 0</pose><geometry><box><size>0.4 10.4 2</size></box></geometry><material><ambient>0.8 0.5 0.2 1</ambient><diffuse>0.8 0.5 0.2 1</diffuse></material></visual>
+
+        <!-- 9. Left Extension Corridor Ceiling -->
+        <collision name="c9"><pose>-15.2 4.2 1 0 0 0</pose><geometry><box><size>6.4 0.4 2</size></box></geometry></collision>
+        <visual name="v9"><pose>-15.2 4.2 1 0 0 0</pose><geometry><box><size>6.4 0.4 2</size></box></geometry><material><ambient>0.8 0.5 0.2 1</ambient><diffuse>0.8 0.5 0.2 1</diffuse></material></visual>
+
+        <!-- 10. Far Left Wall -->
+        <collision name="c10"><pose>-18.2 2 1 0 0 0</pose><geometry><box><size>0.4 4.8 2</size></box></geometry></collision>
+        <visual name="v10"><pose>-18.2 2 1 0 0 0</pose><geometry><box><size>0.4 4.8 2</size></box></geometry><material><ambient>0.8 0.5 0.2 1</ambient><diffuse>0.8 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <!-- OBJECTS -->
+    <model name="objects">
+      <static>true</static>
+      <link name="link">
+        <!-- Left Room Objects -->
+        <collision name="obj1_c"><pose>-9.5 11.5 0.5 0 0 0</pose><geometry><box><size>1 1 1</size></box></geometry></collision>
+        <visual name="obj1_v"><pose>-9.5 11.5 0.5 0 0 0</pose><geometry><box><size>1 1 1</size></box></geometry><material><ambient>0 0.8 0 1</ambient><diffuse>0 0.8 0 1</diffuse></material></visual>
+
+        <collision name="obj2_c"><pose>-4.5 11.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.5</radius><length>1</length></cylinder></geometry></collision>
+        <visual name="obj2_v"><pose>-4.5 11.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.5</radius><length>1</length></cylinder></geometry><material><ambient>0.1 0.1 0.6 1</ambient><diffuse>0.1 0.1 0.6 1</diffuse></material></visual>
+
+        <collision name="obj3_c"><pose>-9.5 6.5 0.5 0 0 0</pose><geometry><sphere><radius>0.5</radius></sphere></geometry></collision>
+        <visual name="obj3_v"><pose>-9.5 6.5 0.5 0 0 0</pose><geometry><sphere><radius>0.5</radius></sphere></geometry><material><ambient>0.3 0.15 0.05 1</ambient><diffuse>0.3 0.15 0.05 1</diffuse></material></visual>
+
+        <collision name="obj4_c"><pose>-4.5 6.5 0.5 0 0 0</pose><geometry><box><size>1 1 1</size></box></geometry></collision>
+        <visual name="obj4_v"><pose>-4.5 6.5 0.5 0 0 0</pose><geometry><box><size>1 1 1</size></box></geometry><material><ambient>0.5 0.1 0.5 1</ambient><diffuse>0.5 0.1 0.5 1</diffuse></material></visual>
+
+        <!-- Right Room Objects -->
+        <collision name="obj5_c"><pose>4.5 11.5 0.5 0 0 0</pose><geometry><box><size>1 1 1</size></box></geometry></collision>
+        <visual name="obj5_v"><pose>4.5 11.5 0.5 0 0 0</pose><geometry><box><size>1 1 1</size></box></geometry><material><ambient>0.5 0.3 0.1 1</ambient><diffuse>0.5 0.3 0.1 1</diffuse></material></visual>
+
+        <collision name="obj6_c"><pose>9.5 11.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.5</radius><length>1</length></cylinder></geometry></collision>
+        <visual name="obj6_v"><pose>9.5 11.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.5</radius><length>1</length></cylinder></geometry><material><ambient>0.8 0.2 0.4 1</ambient><diffuse>0.8 0.2 0.4 1</diffuse></material></visual>
+
+        <collision name="obj7_c"><pose>4.5 6.5 0.5 0 0 0</pose><geometry><sphere><radius>0.5</radius></sphere></geometry></collision>
+        <visual name="obj7_v"><pose>4.5 6.5 0.5 0 0 0</pose><geometry><sphere><radius>0.5</radius></sphere></geometry><material><ambient>0 0.6 0.2 1</ambient><diffuse>0 0.6 0.2 1</diffuse></material></visual>
+
+        <collision name="obj8_c"><pose>9.5 6.5 0.5 0 0 0</pose><geometry><box><size>1 1 1</size></box></geometry></collision>
+        <visual name="obj8_v"><pose>9.5 6.5 0.5 0 0 0</pose><geometry><box><size>1 1 1</size></box></geometry><material><ambient>0.1 0.1 0.5 1</ambient><diffuse>0.1 0.1 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <!-- CAMERA -->
+    <gui fullscreen="0">
+      <camera name="user_camera">
+        <pose>-3 -15 25 0 1.0 1.57</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+
+  </world>
+</sdf>

@@ -14,7 +14,13 @@
     <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
       <render_engine>ogre2</render_engine>
     </plugin>
-
+    <plugin filename="libignition-gazebo-pose-publisher-system.so" name="ignition::gazebo::systems::PosePublisher">
+        <publish_link_pose>true</publish_link_pose>
+        <publish_model_pose>true</publish_model_pose>
+        <publish_nested_model_pose>true</publish_nested_model_pose>
+        <use_pose_vector_msg>true</use_pose_vector_msg>
+        <update_frequency>50</update_frequency>
+    </plugin>
     <!-- Ánh sáng -->
     <light type="directional" name="sun">
       <cast_shadows>true</cast_shadows>
@@ -38,7 +44,7 @@
           <surface>
             <friction>
               <ode>
-                <mu>100.0</mu>    <!-- Hệ số ma sát dọc -->
+                <mu>50.0</mu>    <!-- Hệ số ma sát dọc -->
                 <mu2>50.0</mu2>   <!-- Hệ số ma sát ngang -->
               </ode>
             </friction>

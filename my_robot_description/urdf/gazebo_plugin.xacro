@@ -92,7 +92,7 @@
                 <noise>
                     <type>gaussian</type>
                     <mean>0.0</mean>
-                    <stddev>0.01</stddev>
+                    <stddev>0.0</stddev>
                 </noise>
             </ray>
         </sensor>
@@ -145,6 +145,22 @@
                 </linear_acceleration>
             </imu>
         </sensor>
+    </gazebo>
+
+    <gazebo>
+        <plugin
+            filename="ignition-gazebo-odometry-publisher-system"
+            name="ignition::gazebo::systems::OdometryPublisher">
+
+            <odom_publish_frequency>50</odom_publish_frequency>
+
+            <odom_frame>world</odom_frame>
+
+            <robot_base_frame>base_footprint</robot_base_frame>
+
+            <dimensions>3</dimensions>
+
+        </plugin>
     </gazebo>
 
     <gazebo reference="mat_trau1">

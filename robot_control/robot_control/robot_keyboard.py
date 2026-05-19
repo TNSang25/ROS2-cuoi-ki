@@ -36,8 +36,8 @@ class RobotController(Node):
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
         
         # Tốc độ di chuyển và quay của robot
-        self.linear_speed = 0.3   # 0.5 m/s 
-        self.angular_speed = 0.5  # 0.75 rad/s 
+        self.linear_speed = 0.7   # 0.7 m/s 
+        self.angular_speed = 0.6  # 0.6 rad/s 
         
     def publish_command(self, linear_dir, angular_dir):
         twist = Twist()

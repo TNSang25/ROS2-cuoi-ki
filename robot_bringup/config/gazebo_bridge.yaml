@@ -16,14 +16,14 @@
   gz_type_name: "ignition.msgs.Twist"
   direction: ROS_TO_GZ
 
-- ros_topic_name: "/odom"
-  gz_topic_name: "/odom"
-  ros_type_name: "nav_msgs/msg/Odometry"
-  gz_type_name: "ignition.msgs.Odometry"
-  direction: GZ_TO_ROS
+# - ros_topic_name: "/odom"
+#   gz_topic_name: "/odom"
+#   ros_type_name: "nav_msgs/msg/Odometry"
+#   gz_type_name: "ignition.msgs.Odometry"
+#   direction: GZ_TO_ROS
 
 - ros_topic_name: "/tf"
-  gz_topic_name: "/tf"
+  gz_topic_name: "/world/forest_world/pose/info"
   ros_type_name: "tf2_msgs/msg/TFMessage"
   gz_type_name: "ignition.msgs.Pose_V"
   direction: GZ_TO_ROS
@@ -56,4 +56,10 @@
   gz_topic_name: "/scan"
   ros_type_name: "sensor_msgs/msg/LaserScan"
   gz_type_name: "ignition.msgs.LaserScan"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/odom"
+  gz_topic_name: "/model/my_robot/odometry"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "ignition.msgs.Odometry"
   direction: GZ_TO_ROS
